@@ -18,7 +18,7 @@ The model is trained and evaluated on the **teaLeafBD** dataset, comprising 5,27
 6.  **Green mirid bug**
 7.  **Healthy leaf**
 
-![Example of Tea Leaf Diseases](Picture1.png)
+![Example of Tea Leaf Diseases](Picture2.png)
 
 ### Data Split
 * **Training:** 3,798 images
@@ -50,7 +50,7 @@ Open `final.ipynb` and run the cells sequentially. The script will:
 * Train for up to 100 epochs using the Adam optimizer and a `ReduceLROnPlateau` scheduler.
 * Save the best performing weights to `m_efficientnet_b0_eca_best.pth`.
 
-![Training Loss and Accuracy Curves](image_9ac361.png)
+![Training Loss and Accuracy Curves](Picture4.png)
 
 ### 2. Evaluation
 The notebook includes an evaluation section that loads the saved weights and computes:
@@ -58,9 +58,9 @@ The notebook includes an evaluation section that loads the saved weights and com
 * Macro-averaged Precision, Recall, and F1-Score
 * Confusion Matrix visualization
 
-![Confusion Matrix](image_9ac385.png)
+![Confusion Matrix](Picture10.png)
 
 ## 📈 Results
 The model is designed to optimize the trade-off between parameter count and classification accuracy. By using ECA modules instead of SE blocks, the architecture achieves high sensitivity to disease features with lower computational overhead.
 
-![Comparison of Performance Metrics](image_9ac3e3.png)
+![Comparison of Performance Metrics](Picture8.png)
