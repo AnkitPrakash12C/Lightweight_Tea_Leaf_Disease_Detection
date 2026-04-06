@@ -1,81 +1,82 @@
-Gemini said
-A Lightweight Deep Learning Model for Tea Leaf Disease Detection
-This project introduces m-EfficientNetB0-ECA, a streamlined convolutional neural network optimized for real-time, offline disease diagnosis on resource-constrained Edge AI hardware such as smartphones and drones. By redesigning the EfficientNetB0 backbone, the model achieves high diagnostic precision while maintaining a compact storage footprint.
+Tea Leaf Disease Classification using m-EfficientNetB0+ECA
+This project implements a deep learning model for the multi-class classification of tea leaf diseases. It utilizes a modified version of the EfficientNet-B0 architecture, replacing standard Squeeze-and-Excitation (SE) blocks with Efficient Channel Attention (ECA) modules to improve feature extraction efficiency and model performance.
 
-Project Overview
-Tea productivity is frequently threatened by fungal diseases and pests like Gray Blight, Brown Blight, and Red Spider mites. While deep learning offers automated solutions, traditional "heavyweight" models are often unsuitable for field deployment. This project bridges that gap with an architecture that balances a 91.94% accuracy rate with a model size of just 4.27 MB.
+📊 Dataset: teaLeafBD
+The model is trained on the teaLeafBD dataset, which contains 5,276 images categorized into 7 distinct classes:
 
-Key Innovations
-1. Structural Pruning
-The architecture eliminates redundant deep layers identified as unnecessary for leaf-texture analysis:
+Tea algal leaf spot
 
-Stage 7: Reduced from 4 blocks to a single block.
+Brown Blight
 
-Stage 8: Completely removed to prevent overfitting and reduce parameter count.
+Gray Blight
 
-2. Efficient Channel Attention (ECA)
-Standard Squeeze-and-Excitation (SE) blocks are replaced with ECA modules. ECA captures local cross-channel interactions using a 1D convolution without dimensionality reduction, preserving vital spatial features while lowering computational weight.
+Helopeltis
 
-3. Manual Channel Rewiring
-To ensure information continuity post-pruning, Stage 9 was manually rewired to accept 192 input channels instead of the original 320. This optimization ensures a continuous data stream directly into the classification head.
+Red spider
 
-Technical Specifications
-Framework: PyTorch 2.4.1
+Green mirid bug
 
-Backbone: Modified EfficientNetB0
+Healthy leaf
 
-Input Size: 256 x 256 pixels
+Data Distribution
+Total images: 5,276
 
-Optimizer: Adam (Initial LR: 0.001)
+Training set: 3,798 images
 
-Scheduler: ReduceLROnPlateau (Patience: 15 epochs, Factor: 0.5)
+Validation set: 423 images
 
-Loss Function: Cross-Entropy Loss
+Testing set: 1,055 images
 
-Dataset: teaLeafBD (5,276 images across 7 classes)
+🏗️ Model Architecture: m-EfficientNetB0+ECA
+The core of the project is a customized EfficientNet-B0. Key modifications include:
 
-Performance Metrics
-Metric	Value
-Accuracy	91.94%
-Macro F1-Score	90.51%
-Model Size	4.27 MB
-Inference Speed	~20 FPS (0.049s per image)
-Parameters	~1.18 Million
-Installation & Setup
-Requirements
-Python 3.10+
+ECA Integration: All Squeeze-and-Excitation (SE) modules in the original architecture are replaced with Efficient Channel Attention (ECA) modules.
 
-PyTorch
+Structural Modifications: The architecture's Stage 7 and Stage 8 are modified, and Stage 9 (Conv1x1) input channels are fixed to 192.
 
-Torchvision
+Global Average Pooling (GAP): Used within the ECA module for dimensionality reduction before channel-wise weight computation.
+
+Output Layer: A final linear layer adjusted to output predictions for the 7 disease classes.
+
+⚙️ Training Configuration
+Optimizer: Adam
+
+Loss Function: CrossEntropyLoss
+
+Learning Rate: 0.001
+
+Scheduler: ReduceLROnPlateau (factor=0.5, patience=15) to dynamically adjust the learning rate based on validation loss.
+
+Batch Size: 16
+
+Epochs: Up to 100 (with early saving of the best model).
+
+Data Augmentation: includes Random Resized Crop, Horizontal/Vertical Flips, Rotation, and Color Jitter to improve generalization.
+
+🚀 Getting Started
+Prerequisites
+Python 3.x
+
+PyTorch / Torchvision
 
 Scikit-learn
 
-NumPy
+Numpy / Matplotlib / Seaborn
 
-Matplotlib
+Setup & Usage
+Dataset Path: Ensure the teaLeafBD dataset is available locally. Update the DATA_DIR variable in the notebook to point to your dataset location.
 
-Setup
-Clone the repository and install the dependencies.
+Training: Run the training cells in final.ipynb. The script will automatically detect if a CUDA-enabled GPU is available.
 
-Ensure the teaLeafBD dataset is structured using ImageFolder format (Train/Test subdirectories).
+Best Model: The training loop saves the weights of the model with the lowest validation loss as m_efficientnet_b0_eca_best.pth.
 
-Place the pre-trained weights (m_efficientnet_b0_eca_best.pth) in the root directory.
+Evaluation: The final cell loads the best model and reports accuracy, precision, recall, and F1-score on the held-out test set.
 
-Usage
-Training the Model
-The model is trained for 100 epochs with dynamic learning rate adjustments. Data augmentation includes 20° rotations, horizontal/vertical flips, and color jittering to simulate field-level variability.
+📈 Results
+The final model performance is evaluated using macro-averaged metrics to ensure balanced performance across all 7 disease categories. Test results typically include:
 
-Running Inference
-Python
-import torch
-from model_script import create_m_efficientnet_b0_eca
+Test Loss
 
-# Load model
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = create_m_efficientnet_b0_eca(num_classes=7).to(device)
-model.load_state_dict(torch.load("m_efficientnet_b0_eca_best.pth"))
-model.eval()
+Test Accuracy
 
-# Run prediction on a 256x256 preprocessed image
-# output = model(input_tensor)
+Macro Precision, Recall, and F1-Score
