@@ -7,7 +7,7 @@ Lib/
 Scripts/
 Include/
 
-# Large binary files, models, and datasets
+# Large binary files, models, and dataset  
 *.zip
 *.pth
 *.keras
