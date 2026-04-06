@@ -139,7 +139,6 @@ plt.legend(loc='upper right')
 plt.title('Training and Validation Loss')
 plt.show()
 
-# --- 10. Make Predictions (Example on one batch from validation set) ---
 print("\nMaking predictions on a batch of validation data...")
 image_batch, label_batch = next(iter(val_ds)) # Get one batch
 predictions = model.predict(image_batch)
