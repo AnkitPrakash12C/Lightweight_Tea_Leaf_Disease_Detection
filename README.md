@@ -31,7 +31,7 @@ The model is trained and evaluated on the **teaLeafBD** dataset, comprising 5,27
 * **Key Modification:** Stage 7 and Stage 8 were modified, and the Stage 9 Conv1x1 input channels were fixed to 192.
 * **Head:** Adaptive Average Pooling followed by a Dropout layer and a Linear classifier for 7 classes.
 
-![Model Architecture Diagram](image_9ac3fd.png)
+![Model Architecture Diagram](Picture7.png)
 
 ## ⚙️ Requirements
 * Python 3.x
