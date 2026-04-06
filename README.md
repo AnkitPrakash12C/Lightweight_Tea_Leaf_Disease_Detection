@@ -8,59 +8,61 @@ Agricultural productivity for tea crops is often threatened by various diseases 
 The core contribution is the **m-EfficientNetB0+ECA** model, which replaces standard Squeeze-and-Excitation (SE) blocks with ECA modules to capture cross-channel interactions more effectively without dimensionality reduction.
 
 ## 📊 Dataset: teaLeafBD
-The model is trained and evaluated on the **teaLeafBD** dataset, comprising 5,276 images across 7 classes:
+The model is trained and evaluated on the **teaLeafBD** dataset, comprising 5,276 images across 7 classes.
 
-1.  **Tea algal leaf spot**
-2.  **Brown Blight**
-3.  **Gray Blight**
-4.  **Helopeltis**
-5.  **Red spider**
-6.  **Green mirid bug**
-7.  **Healthy leaf**
-
-![Example of Tea Leaf Diseases](Picture2.png)
+<p align="center">
+  <img src="image_9ac348.jpg" alt="Dataset Sample Grid" width="600px">
+  <br>
+  <em>Dataset Sample Grid: Visual characteristics of the 7 tea leaf classes.</em>
+</p>
 
 ### Data Split
 * **Training:** 3,798 images
 * **Validation:** 423 images
 * **Testing:** 1,055 images
 
+<p align="center">
+  <img src="image_9ac366.png" alt="Dataset Distribution Histogram" width="500px">
+  <br>
+  <em>Dataset Distribution Histogram: Class balance across the dataset.</em>
+</p>
+
 ## 🏗️ Architecture: m-EfficientNetB0+ECA
 * **Base Model:** EfficientNet-B0
 * **Enhancement:** Efficient Channel Attention (ECA)
 * **Key Modification:** Stage 7 and Stage 8 were modified, and the Stage 9 Conv1x1 input channels were fixed to 192.
-* **Head:** Adaptive Average Pooling followed by a Dropout layer and a Linear classifier for 7 classes.
 
-![Model Architecture Diagram](Picture7.png)
-
-## ⚙️ Requirements
-* Python 3.x
-* PyTorch
-* Torchvision
-* TorchInfo
-* Matplotlib
-* Scikit-learn
+<p align="center">
+  <img src="image_9ac3fd.png" alt="Methodology Flow Chart" width="700px">
+  <br>
+  <em>Methodology Flow Chart: Structural diagram of the m-EfficientNetB0+ECA architecture.</em>
+</p>
 
 ## 🚀 Usage
 
 ### 1. Training
-Open `final.ipynb` and run the cells sequentially. The script will:
-* Set up data loaders with augmentations (RandomResizedCrop, Flips, Rotation, ColorJitter).
-* Initialize the modified EfficientNet-B0 model.
-* Train for up to 100 epochs using the Adam optimizer and a `ReduceLROnPlateau` scheduler.
-* Save the best performing weights to `m_efficientnet_b0_eca_best.pth`.
+The training loop utilizes the Adam optimizer and a `ReduceLROnPlateau` scheduler over 100 epochs.
 
-![Training Loss and Accuracy Curves](Picture4.png)
+<p align="center">
+  <img src="image_9ac361.png" alt="Training Progress Curves" width="600px">
+  <br>
+  <em>Training Progress Curves: Loss and Accuracy metrics over 100 epochs.</em>
+</p>
 
 ### 2. Evaluation
-The notebook includes an evaluation section that loads the saved weights and computes:
-* Test Accuracy
-* Macro-averaged Precision, Recall, and F1-Score
-* Confusion Matrix visualization
+The model is evaluated using a confusion matrix to analyze misclassification patterns between similar disease types.
 
-![Confusion Matrix](Picture10.png)
+<p align="center">
+  <img src="image_9ac385.png" alt="Confusion Matrix" width="500px">
+  <br>
+  <em>Confusion Matrix: Heatmap of predicted vs. true labels on the test set.</em>
+</p>
 
 ## 📈 Results
-The model is designed to optimize the trade-off between parameter count and classification accuracy. By using ECA modules instead of SE blocks, the architecture achieves high sensitivity to disease features with lower computational overhead.
+The final performance is summarized via precision, recall, and F1-score metrics for each category.
 
-![Comparison of Performance Metrics](Picture8.png)
+<p align="center">
+  <img src="image_9ac3e3.png" alt="Performance Summary Bar Chart" width="600px">
+  <br>
+  <em>Performance Summary: Classification metrics across all disease categories.</em>
+</p>
