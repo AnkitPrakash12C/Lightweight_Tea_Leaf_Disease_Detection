@@ -1,8 +1,10 @@
-Tea Leaf Disease Classification using m-EfficientNetB0+ECA
-This project implements a deep learning model for the multi-class classification of tea leaf diseases. It utilizes a modified version of the EfficientNet-B0 architecture, replacing standard Squeeze-and-Excitation (SE) blocks with Efficient Channel Attention (ECA) modules to improve feature extraction efficiency and model performance.
+🌿 Project Overview
+Agricultural productivity for tea crops is often threatened by various diseases and pests. This project provides an automated computer vision solution to identify and classify these issues from images of tea leaves.
+
+The core contribution is the m-EfficientNetB0+ECA model, which replaces standard Squeeze-and-Excitation (SE) blocks with ECA modules to capture cross-channel interactions more effectively without dimensionality reduction.
 
 📊 Dataset: teaLeafBD
-The model is trained on the teaLeafBD dataset, which contains 5,276 images categorized into 7 distinct classes:
+The model is trained and evaluated on the teaLeafBD dataset, comprising 5,276 images across 7 classes:
 
 Tea algal leaf spot
 
@@ -18,65 +20,55 @@ Green mirid bug
 
 Healthy leaf
 
-Data Distribution
-Total images: 5,276
+Data Split
+Training: 3,798 images
 
-Training set: 3,798 images
+Validation: 423 images
 
-Validation set: 423 images
+Testing: 1,055 images
 
-Testing set: 1,055 images
+🏗️ Architecture: m-EfficientNetB0+ECA
+Base Model: EfficientNet-B0
 
-🏗️ Model Architecture: m-EfficientNetB0+ECA
-The core of the project is a customized EfficientNet-B0. Key modifications include:
+Enhancement: Efficient Channel Attention (ECA)
 
-ECA Integration: All Squeeze-and-Excitation (SE) modules in the original architecture are replaced with Efficient Channel Attention (ECA) modules.
+Key Modification: Stage 7 and Stage 8 were modified, and the Stage 9 Conv1x1 input channels were fixed to 192.
 
-Structural Modifications: The architecture's Stage 7 and Stage 8 are modified, and Stage 9 (Conv1x1) input channels are fixed to 192.
+Head: Adaptive Average Pooling followed by a Dropout layer and a Linear classifier for 7 classes.
 
-Global Average Pooling (GAP): Used within the ECA module for dimensionality reduction before channel-wise weight computation.
-
-Output Layer: A final linear layer adjusted to output predictions for the 7 disease classes.
-
-⚙️ Training Configuration
-Optimizer: Adam
-
-Loss Function: CrossEntropyLoss
-
-Learning Rate: 0.001
-
-Scheduler: ReduceLROnPlateau (factor=0.5, patience=15) to dynamically adjust the learning rate based on validation loss.
-
-Batch Size: 16
-
-Epochs: Up to 100 (with early saving of the best model).
-
-Data Augmentation: includes Random Resized Crop, Horizontal/Vertical Flips, Rotation, and Color Jitter to improve generalization.
-
-🚀 Getting Started
-Prerequisites
+⚙️ Requirements
 Python 3.x
 
-PyTorch / Torchvision
+PyTorch
+
+Torchvision
+
+TorchInfo (for model summaries)
+
+Matplotlib
 
 Scikit-learn
 
-Numpy / Matplotlib / Seaborn
+🚀 Usage
+1. Training
+Open final.ipynb and run the cells sequentially. The script will:
 
-Setup & Usage
-Dataset Path: Ensure the teaLeafBD dataset is available locally. Update the DATA_DIR variable in the notebook to point to your dataset location.
+Set up data loaders with augmentations (RandomResizedCrop, Flips, Rotation, ColorJitter).
 
-Training: Run the training cells in final.ipynb. The script will automatically detect if a CUDA-enabled GPU is available.
+Initialize the modified EfficientNet-B0 model.
 
-Best Model: The training loop saves the weights of the model with the lowest validation loss as m_efficientnet_b0_eca_best.pth.
+Train for up to 100 epochs using the Adam optimizer and a ReduceLROnPlateau scheduler.
 
-Evaluation: The final cell loads the best model and reports accuracy, precision, recall, and F1-score on the held-out test set.
+Save the best performing weights to m_efficientnet_b0_eca_best.pth.
 
-📈 Results
-The final model performance is evaluated using macro-averaged metrics to ensure balanced performance across all 7 disease categories. Test results typically include:
-
-Test Loss
+2. Evaluation
+The notebook includes an evaluation section that loads the saved weights and computes:
 
 Test Accuracy
 
-Macro Precision, Recall, and F1-Score
+Macro-averaged Precision, Recall, and F1-Score
+
+Confusion Matrix visualization
+
+📈 Results
+The model is designed to optimize the trade-off between parameter count and classification accuracy. By using ECA modules instead of SE blocks, the architecture achieves high sensitivity to disease features with lower computational overhead.
