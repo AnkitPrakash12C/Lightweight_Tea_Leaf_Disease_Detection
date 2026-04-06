@@ -22,7 +22,7 @@ The model is trained and evaluated on the **teaLeafBD** dataset, comprising 5,27
 * **Testing:** 1,055 images
 
 <p align="center">
-  <img src="image_9ac366.png" alt="Dataset Distribution Histogram" width="500px">
+  <img src="Picture2.png" alt="Dataset Distribution Histogram" width="500px">
   <br>
   <em>Dataset Distribution Histogram: Class balance across the dataset.</em>
 </p>
@@ -33,7 +33,7 @@ The model is trained and evaluated on the **teaLeafBD** dataset, comprising 5,27
 * **Key Modification:** Stage 7 and Stage 8 were modified, and the Stage 9 Conv1x1 input channels were fixed to 192.
 
 <p align="center">
-  <img src="image_9ac3fd.png" alt="Methodology Flow Chart" width="700px">
+  <img src="Picture7.png" alt="Methodology Flow Chart" width="700px">
   <br>
   <em>Methodology Flow Chart: Structural diagram of the m-EfficientNetB0+ECA architecture.</em>
 </p>
@@ -44,7 +44,7 @@ The model is trained and evaluated on the **teaLeafBD** dataset, comprising 5,27
 The training loop utilizes the Adam optimizer and a `ReduceLROnPlateau` scheduler over 100 epochs.
 
 <p align="center">
-  <img src="image_9ac361.png" alt="Training Progress Curves" width="600px">
+  <img src="Picture4.png" alt="Training Progress Curves" width="600px">
   <br>
   <em>Training Progress Curves: Loss and Accuracy metrics over 100 epochs.</em>
 </p>
@@ -53,7 +53,7 @@ The training loop utilizes the Adam optimizer and a `ReduceLROnPlateau` schedule
 The model is evaluated using a confusion matrix to analyze misclassification patterns between similar disease types.
 
 <p align="center">
-  <img src="image_9ac385.png" alt="Confusion Matrix" width="500px">
+  <img src="Picture8.png" alt="Confusion Matrix" width="500px">
   <br>
   <em>Confusion Matrix: Heatmap of predicted vs. true labels on the test set.</em>
 </p>
@@ -62,7 +62,7 @@ The model is evaluated using a confusion matrix to analyze misclassification pat
 The final performance is summarized via precision, recall, and F1-score metrics for each category.
 
 <p align="center">
-  <img src="image_9ac3e3.png" alt="Performance Summary Bar Chart" width="600px">
+  <img src="Picture10.png" alt="Performance Summary Bar Chart" width="600px">
   <br>
   <em>Performance Summary: Classification metrics across all disease categories.</em>
 </p>
