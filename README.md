@@ -18,7 +18,7 @@ The model is trained and evaluated on the **teaLeafBD** dataset, comprising 5,27
 6.  **Green mirid bug**
 7.  **Healthy leaf**
 
-![Example of Tea Leaf Diseases](image_9ac348.jpg)
+![Example of Tea Leaf Diseases](Picture1.png)
 
 ### Data Split
 * **Training:** 3,798 images
