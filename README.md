@@ -1,68 +1,75 @@
-# Tea Leaf Disease Classification using m-EfficientNetB0+ECA
+# m-EfficientNetB0+ECA: A Lightweight Model for Tea Leaf Disease Detection
 
-This repository contains the implementation of a deep learning model for the multi-class classification of tea leaf diseases. The project utilizes a modified version of the EfficientNet-B0 architecture, enhanced with **Efficient Channel Attention (ECA)** modules to improve performance while maintaining computational efficiency.
+This repository implements a lightweight, high-performance deep learning architecture designed for resource-constrained environments (e.g., mobile devices). By optimizing the EfficientNet-B0 backbone and integrating Efficient Channel Attention (ECA), this model provides an efficient solution for the automated diagnosis of tea leaf diseases.
 
 ## 🌿 Project Overview
-Agricultural productivity for tea crops is often threatened by various diseases and pests. This project provides an automated computer vision solution to identify and classify these issues from images of tea leaves. 
+Tea productivity is frequently threatened by various pathogens and pests. This project introduces **m-EfficientNetB0+ECA**, a redesigned network that minimizes computational overhead while maintaining high classification accuracy. 
 
-The core contribution is the **m-EfficientNetB0+ECA** model, which replaces standard Squeeze-and-Excitation (SE) blocks with ECA modules to capture cross-channel interactions more effectively without dimensionality reduction.
+**Key Innovations:**
+* **Layer Streamlining:** Redundant layers from the original EfficientNet-B0 were removed to reduce parameter count.
+* **ECA Integration:** Replaced standard Squeeze-and-Excitation (SE) blocks with **Efficient Channel Attention (ECA)** to capture cross-channel interactions without dimensionality reduction.
 
 ## 📊 Dataset: teaLeafBD
-The model is trained and evaluated on the **teaLeafBD** dataset, comprising 5,276 images across 7 classes.
+The model was trained and validated using the **teaLeafBD** dataset, which contains 5,276 high-resolution images categorized into 7 distinct classes.
 
 <p align="center">
-  <img src="image_9ac348.jpg" alt="Dataset Sample Grid" width="600px">
+  <img src="Picture2.png" alt="Tea Leaf Disease Samples" width="600px">
   <br>
-  <em>Dataset Sample Grid: Visual characteristics of the 7 tea leaf classes.</em>
+  <em>Figure 1: Representative samples of tea leaf diseases from the dataset.</em>
 </p>
 
-### Data Split
-* **Training:** 3,798 images
-* **Validation:** 423 images
-* **Testing:** 1,055 images
+### Class Distribution
+The dataset distribution ensures the model is robust across common and rare disease manifestations.
 
 <p align="center">
-  <img src="Picture2.png" alt="Dataset Distribution Histogram" width="500px">
+  <img src="Picture4.png" alt="Class Distribution" width="500px">
   <br>
-  <em>Dataset Distribution Histogram: Class balance across the dataset.</em>
+  <em>Figure 2: Distribution of images across the 7 disease categories.</em>
 </p>
 
-## 🏗️ Architecture: m-EfficientNetB0+ECA
-* **Base Model:** EfficientNet-B0
-* **Enhancement:** Efficient Channel Attention (ECA)
-* **Key Modification:** Stage 7 and Stage 8 were modified, and the Stage 9 Conv1x1 input channels were fixed to 192.
+## 🏗️ Methodology & Architecture
+The proposed **m-EfficientNetB0+ECA** architecture focuses on maximizing the "Accuracy-to-Parameter" ratio. 
 
 <p align="center">
-  <img src="Picture7.png" alt="Methodology Flow Chart" width="700px">
+  <img src="Picture10.png" alt="m-EfficientNetB0+ECA Architecture" width="700px">
   <br>
-  <em>Methodology Flow Chart: Structural diagram of the m-EfficientNetB0+ECA architecture.</em>
+  <em>Figure 3: Detailed architecture of the proposed lightweight model featuring ECA modules.</em>
 </p>
 
-## 🚀 Usage
-
-### 1. Training
-The training loop utilizes the Adam optimizer and a `ReduceLROnPlateau` scheduler over 100 epochs.
+## 🚀 Training & Experimental Setup
+The model was trained for 100 epochs using the following hyperparameters:
+* **Optimizer:** Adam (Learning Rate: 0.001)
+* **Scheduler:** ReduceLROnPlateau (Factor: 0.5, Patience: 15)
+* **Augmentation:** Random Resized Crop, Horizontal/Vertical Flips, and Color Jitter.
 
 <p align="center">
-  <img src="Picture4.png" alt="Training Progress Curves" width="600px">
+  <img src="Picture3.png" alt="Training Curves" width="600px">
   <br>
-  <em>Training Progress Curves: Loss and Accuracy metrics over 100 epochs.</em>
+  <em>Figure 4: Training and Validation Accuracy/Loss curves showing model convergence.</em>
 </p>
 
-### 2. Evaluation
-The model is evaluated using a confusion matrix to analyze misclassification patterns between similar disease types.
+## 📈 Performance Evaluation
+The model's effectiveness was validated using a held-out test set (20% of total data). 
+
+### Confusion Matrix
+To analyze the model's ability to distinguish between visually similar diseases, a confusion matrix was generated:
 
 <p align="center">
-  <img src="Picture8.png" alt="Confusion Matrix" width="500px">
+  <img src="Picture7.png" alt="Confusion Matrix" width="500px">
   <br>
-  <em>Confusion Matrix: Heatmap of predicted vs. true labels on the test set.</em>
+  <em>Figure 5: Confusion matrix illustrating per-class prediction accuracy.</em>
 </p>
 
-## 📈 Results
-The final performance is summarized via precision, recall, and F1-score metrics for each category.
+### Final Metrics
+The model achieves competitive results across all primary metrics:
 
 <p align="center">
-  <img src="Picture10.png" alt="Performance Summary Bar Chart" width="600px">
+  <img src="Picture9.png" alt="Performance Metrics" width="600px">
   <br>
-  <em>Performance Summary: Classification metrics across all disease categories.</em>
+  <em>Figure 6: Summary of Precision, Recall, and F1-Score for each class.</em>
 </p>
+
+## ⚙️ Setup and Installation
+1. Clone the repository.
+2. Install dependencies: `pip install torch torchvision matplotlib scikit-learn torchinfo`.
+3. Open `final.ipynb` to train or evaluate the model.
