@@ -64,7 +64,7 @@ To analyze the model's ability to distinguish between visually similar diseases,
 The model achieves competitive results across all primary metrics:
 
 <p align="center">
-  <img src="Picture9.png" alt="Performance Metrics" width="600px">
+  <img src="Picture8.png" alt="Performance Metrics" width="600px">
   <br>
   <em>Figure 6: Summary of Precision, Recall, and F1-Score for each class.</em>
 </p>
