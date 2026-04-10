@@ -66,7 +66,7 @@ The model achieves competitive results across all primary metrics:
 <p align="center">
   <img src="Picture8.jpg" alt="Performance Metrics" width="600px">
   <br>
-  <em>Figure 6: Summary of Precision, Recall, and F1-Score for each class.</em>
+  <em>Figure 6: Summary of Precision and F1-Score for each class.</em>
 </p>
 
 ## ⚙️ Setup and Installation
